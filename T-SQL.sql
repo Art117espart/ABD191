@@ -38,7 +38,7 @@ BEGIN
 	print @contador
 	set @contador = @contador + 1
 END
-*/
+
 --Return
 
 DECLARE @contador int = 0
@@ -56,9 +56,26 @@ BEGIN TRY--Intenta realizar lo que esta adentro si no...
 set  @contador = 'Juan Armando Velazquez Alvarez' --Esto es puesto intencional para poder prevenir un error de este tipo
 END TRY--Avisa que pasa algo para poder seguir
 BEGIN CATCH
-	print ('la variable solo acepta enteros')
+	print ('!!La variable solo acepta enteros!!')
 END CATCH
-
 
 print('soy otra consulta')
 print('yo tambien')
+*/
+
+-- CASE: 
+DECLARE @valor int
+DECLARE @resultado char(10)=''
+set @valor = 40
+--Este CASE se encarga de mostrar el valor marcado en set @valor = n
+set @resultado = (CASE WHEN @valor = 10 THEN 'ROJO'
+						WHEN @valor = 20 THEN 'VERDE'
+						WHEN @valor = 30 THEN 'MORADO'
+						ELSE 'GRIS'
+						END)
+print @resultado
+--Con este select va a mostrar los libros de inventario si estan disponibles o no, usando CASE
+SELECT * , (CASE WHEN disponibilidad >= 1 THEN 'VERDE'
+				 WHEN disponibilidad = 0 THEN 'ROJO'
+				 ELSE 'NEGRO'END) AS INDICADOR
+				 FROM Inventario
