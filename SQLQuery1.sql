@@ -1,4 +1,4 @@
--- Creación de tablas
+USE ComicsStore;
 CREATE TABLE Clientes (
 id_cliente BIGINT IDENTITY(1,1) PRIMARY KEY,
 nombre VARCHAR (100),
@@ -6,6 +6,7 @@ correo_electronico VARCHAR (255),
 pass VARCHAR(255)
 );
 SELECT * FROM Clientes;
+
 CREATE TABLE Compras (
 id_compra BIGINT IDENTITY(1,1) PRIMARY KEY,
 fecha_compra DATE,
@@ -13,16 +14,14 @@ id_cliente BIGINT,
 FOREIGN KEY (id_cliente) REFERENCES Clientes(id_cliente)
 );
 SELECT * FROM Compras;
+
 CREATE TABLE Comics(
 id_comic BIGINT IDENTITY(1,1) PRIMARY KEY,
 nombre VARCHAR (255),
-anio INT,
+año INT,
 precio FLOAT 
 );
 SELECT * FROM Comics;
-ALTER TABLE Comics DROP COLUMN precio;
-ALTER TABLE Comics ADD anio INT;
-
 
 CREATE TABLE comic_compras(
 id_CC BIGINT IDENTITY(1,1) PRIMARY KEY,
@@ -33,6 +32,8 @@ FOREIGN KEY (id_compra) REFERENCES Compras(id_compra),
 FOREIGN KEY (id_comic) REFERENCES Comics(id_comic)
 );
 SELECT * FROM comic_compras;
+
+
 CREATE TABLE Inventario(
 id_inventario BIGINT IDENTITY(1,1) PRIMARY KEY,
 id_comic BIGINT,
@@ -57,7 +58,7 @@ INSERT INTO Clientes (nombre, correo_electronico, pass) VALUES
 ('Valeria Castro', 'valeria.castro@example.com', 'password12');
 
 INSERT INTO Comics (nombre, anio, precio) VALUES
-('Comic 1', 1980, 9),
+('Comic 1', 2032, 9),
 ('Comic 2', 2021, 12),
 ('Comic 3', 2019, 8),
 ('Comic 4', 2022, 15),
@@ -85,7 +86,7 @@ INSERT INTO Inventario (id_comic, cantidad_disponible, disponibilidad) VALUES
 (12, 6, 1),
 (13, 3, 1),
 (14, 9, 1),
-(15, 1, 1),
+(15, 15, 1),
 (16, 4, 1),
 (17, 11, 1),
 (18, 5, 1);
@@ -119,3 +120,5 @@ INSERT INTO comic_compras (cantidad, id_compra, id_comic) VALUES
 (1, 8, 8),
 (3, 9, 9),
 (1, 10, 10);
+
+
